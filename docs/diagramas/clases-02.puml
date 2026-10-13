@@ -1,0 +1,77 @@
+@startuml clases-02
+hide circle
+skinparam classAttributeIconSize 0
+skinparam backgroundColor transparent
+skinparam monochrome true
+skinparam shadowing false
+skinparam roundcorner 0
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+
+' ====== SISTEMA ======
+class Sistema {
+    + ejecutar()
+    - iniciarSesion() : Cuenta
+    - menu(cuenta : Cuenta) : Boolean
+    - crearCuenta()
+    - borrarCuenta(cuenta : Cuenta)
+    - nuevoMensaje(emisor : Usuario)
+    - leerMensaje(receptor : Usuario)
+    - verEnviados(emisor : Usuario)
+}
+
+' ====== CUENTAS ======
+abstract class Cuenta {
+    - nombreUsuario : String
+    - contrasenia : String
+    + comprobarUsuario(username : String, contrasenia : String) : Boolean
+    + {abstract} obtenerOpciones() : String[]
+}
+
+class Usuario {
+    + obtenerOpciones() : String[]
+}
+
+class Admin {
+    + obtenerOpciones() : String[]
+}
+
+Cuenta <|-- Usuario
+Cuenta <|-- Admin
+
+' ====== MENSAJE ======
+class Mensaje {
+    - asunto : String
+    - cuerpo : String
+    - fechaEnvio : Date
+    - leido : Boolean
+    + leer() : String
+    + esPara(u : Usuario) : Boolean
+    + esDe(u : Usuario) : Boolean
+    + estaLeido() : Boolean
+}
+
+' ====== GESTORES ======
+class GestorDeUsuarios {
+    + agregar(cuenta : Cuenta)
+    + eliminar(cuenta : Cuenta)
+    + buscarPorUsername(username : String) : Cuenta
+    + listar() : Cuenta[]
+    + listarUsuarios() : Usuario[]
+}
+
+class GestorDeMensajes {
+    + agregarMensaje(m : Mensaje)
+    + mensajesPara(u : Usuario) : Mensaje[]
+    + mensajesDe(u : Usuario) : Mensaje[]
+}
+
+' ====== RELACIONES ======
+Sistema *-> GestorDeUsuarios : gestorUsuarios
+GestorDeMensajes <-* Sistema : gestorMensajes
+GestorDeUsuarios *--> "*" Cuenta : cuentas
+GestorDeMensajes *--> "*" Mensaje : mensajes
+Mensaje --> Usuario : emisor
+Mensaje --> Usuario : receptor
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml secuencia
+skinparam shadowing false
+skinparam monochrome true
+skinparam sequenceMessageAlign center
+skinparam ParticipantBackgroundColor white
+skinparam ActorBackgroundColor white
+skinparam backgroundColor transparent
+skinparam ArrowColor black
+skinparam BorderColor black
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 12
+
+actor "Usuario" as user
+participant "Sistema" as sistema
+participant "GestorDeUsuarios" as gu
+participant "GestorDeMensajes" as gm
+participant "Mensaje" as mensaje
+
+user -> sistema : nuevoMensaje()
+activate sistema
+
+sistema -> gu : listarUsuarios()
+activate gu
+gu --> sistema : Usuario[]
+deactivate gu
+
+sistema -> user : muestra lista de destinatarios
+user -> sistema : selecciona receptor, asunto, cuerpo
+
+create mensaje
+sistema -> mensaje : new Mensaje(emisor, receptor, asunto, cuerpo)
+activate mensaje
+mensaje --> sistema : nuevoMensaje
+deactivate mensaje
+
+sistema -> gm : agregarMensaje(mensaje)
+activate gm
+gm -> gm : append(mensaje)
+gm --> sistema : ok
+deactivate gm
+
+sistema --> user : "Mensaje enviado"
+deactivate sistema
+
+hide footbox
+@enduml

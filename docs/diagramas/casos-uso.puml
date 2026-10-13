@@ -1,0 +1,39 @@
+@startuml casos-uso
+left to right direction
+skinparam shadowing false
+skinparam monochrome true
+skinparam backgroundColor transparent
+skinparam defaultFontName Helvetica
+skinparam defaultFontSize 14
+skinparam packageStyle rectangle
+
+actor "Usuario" as user
+actor "Admin" as admin
+
+rectangle "Sistema de Mensajeria" {
+  usecase "Crear cuetna" as UC1
+  usecase "Borrar cuenta" as UC2
+  usecase "Listar cuentas" as UC3
+  usecase "Ingresar" as UC9
+  usecase "Salir" as UC10
+  usecase "Enviar mensaje" as UC4
+  usecase "Ver recibidos" as UC5
+  usecase "Ver enviados" as UC6
+  usecase "Leer mensaje" as UC7
+}
+
+admin --> UC1
+admin --> UC2
+admin --> UC3
+admin --> UC9
+admin --> UC10
+
+UC4 <-- user
+UC5 <-- user
+UC6 <-- user
+UC7 <-- user
+UC9 <-- user
+UC10 <-- user
+
+
+@enduml

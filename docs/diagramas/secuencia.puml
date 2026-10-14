@@ -4,7 +4,7 @@ skinparam monochrome true
 skinparam sequenceMessageAlign center
 skinparam ParticipantBackgroundColor white
 skinparam ActorBackgroundColor white
-skinparam backgroundColor transparent
+'skinparam backgroundColor transparent
 skinparam ArrowColor black
 skinparam BorderColor black
 skinparam defaultFontName Helvetica

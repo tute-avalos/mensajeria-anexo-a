@@ -2,7 +2,7 @@
 left to right direction
 skinparam shadowing false
 skinparam monochrome true
-skinparam backgroundColor transparent
+'skinparam backgroundColor transparent
 skinparam defaultFontName Helvetica
 skinparam defaultFontSize 14
 skinparam packageStyle rectangle
